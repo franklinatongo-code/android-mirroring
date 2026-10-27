@@ -4,6 +4,14 @@
 
 ![License](https://img.shields.io/badge/license-MIT-green) ![Python](https://img.shields.io/badge/python-3.8%2B-blue) ![platform](https://img.shields.io/badge/platform-linux-informational) ![scrcpy](https://img.shields.io/badge/scrcpy-v5.0.1-orange)
 
+## 🎬 See it in action
+
+Fuzzy tokens typed → the phone's apps pop out as real desktop windows:
+
+![scrcx demo: launching instagram + youtube as desktop windows](docs/demo.gif)
+
+*(46 s full demo with sound: [docs/demo.mp4](docs/demo.mp4))*
+
 scrcx (say "scrick-s") opens **YouTube, WhatsApp, Discord, Instagram — any app — in its own resizable
 desktop window**, then gives you (and AI agents like opencode) terminal super-powers over the phone:
 
@@ -14,14 +22,6 @@ $ ./bin/scrcx tap --text "Sign in"                # tap the thing, not coordinat
 $ ./bin/scrcx rewind --ago 90 --save before.png   # time machine: any moment, 90s back
 $ ./bin/scrcx unlock --pin <pin> --stealth        # unlock with the screen never visibly on
 ```
-
-## 🎬 See it in action
-
-Fuzzy tokens typed → the phone's apps pop out as real desktop windows:
-
-![scrcx demo: launching instagram + youtube as desktop windows](docs/demo.gif)
-
-*(46 s full demo with sound: [docs/demo.mp4](docs/demo.mp4))*
 
 ## ✨ Highlights
 
