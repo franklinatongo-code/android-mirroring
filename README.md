@@ -1,10 +1,11 @@
 <div align="center">
 
-# scrcx
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/banner-dark.svg">
+  <img src="docs/banner-light.svg" alt="scrcx — Android apps as real desktop windows" width="720">
+</picture>
 
-**Android apps as real desktop windows — scriptable from the terminal, built for AI agents.**
-
-[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE) [![Python](https://img.shields.io/badge/python-3.8%2B-blue)](#) [![Platform](https://img.shields.io/badge/platform-Linux-informational)](#) [![scrcpy](https://img.shields.io/badge/scrcpy-v5.0.1-orange)](https://github.com/Genymobile/scrcpy)
+[![License](https://img.shields.io/badge/license-MIT-22dd88?style=flat-square)](LICENSE) [![Python](https://img.shields.io/badge/python-3.8%2B-3d7ae0?style=flat-square)](#) [![Platform](https://img.shields.io/badge/platform-Linux-4a5568?style=flat-square)](#) [![scrcpy](https://img.shields.io/badge/scrcpy-v5.0.1-e06c3d?style=flat-square)](https://github.com/Genymobile/scrcpy) [![stars](https://img.shields.io/github/stars/franklinatongo-code/android-mirroring?style=flat-square&color=default)](https://github.com/franklinatongo-code/android-mirroring/stargazers)
 
 ![scrcx demo: launching instagram + youtube as desktop windows](docs/demo.gif)
 

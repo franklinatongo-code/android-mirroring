@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="280" viewBox="0 0 960 280" role="img" aria-label="scrcx banner">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0d1321"/>
+      <stop offset="1" stop-color="#152144"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#3ddc97"/>
+      <stop offset="0.5" stop-color="#58a6ff"/>
+      <stop offset="1" stop-color="#bc8cff"/>
+    </linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.6" fill="#ffffff" opacity="0.045"/>
+    </pattern>
+  </defs>
+
+  <rect width="960" height="280" rx="22" fill="url(#bg)"/>
+  <rect width="960" height="280" rx="22" fill="url(#dots)"/>
+  <rect x="18" y="18" width="924" height="244" rx="14" fill="none" stroke="#ffffff" stroke-opacity="0.06"/>
+
+  <!-- accent bar -->
+  <rect x="62" y="176" width="270" height="5" rx="2.5" fill="url(#accent)"/>
+
+  <!-- wordmark -->
+  <text x="60" y="142" font-family="JetBrains Mono, Menlo, Consolas, monospace" font-size="78" font-weight="700" fill="#f0f6fc" letter-spacing="1">scrcx</text>
+  <text x="62" y="218" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="25" fill="#8fa3bf">Android apps as real desktop windows,</text>
+  <text x="62" y="248" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="25" fill="#8fa3bf">scripted for humans and AI agents.</text>
+  <text x="62" y="40" font-family="JetBrains Mono, Menlo, Consolas, monospace" font-size="15" fill="#6f7f9d">pure python · scrcpy v5.0.1 wire protocol · zero pip deps</text>
+
+  <!-- phone -->
+  <rect x="590" y="70" width="86" height="150" rx="14" fill="#0b1220" stroke="#3b4a6b" stroke-width="2"/>
+  <rect x="598" y="78" width="70" height="134" rx="9" fill="#111a30"/>
+  <circle cx="633" cy="207" r="4" fill="#3b4a6b"/>
+
+  <!-- dashed transfer arrow -->
+  <path d="M 682 118 C 710 108 718 128 742 122" stroke="#5cc02c" stroke-opacity="0" fill="none"/>
+  <path d="M 682 118 C 708 112 716 132 738 126" stroke="#58a6ff" stroke-width="2" stroke-dasharray="5 5" fill="none" opacity="0.8"/>
+  <path d="M 735 118 l 8 8 -11 3 z" fill="#58a6ff" opacity="0.9"/>
+
+  <!-- floating app windows -->
+  <rect x="748" y="58" width="158" height="112" rx="10" fill="#161d33" stroke="#33415f" stroke-width="1.5"/>
+  <rect x="748" y="58" width="158" height="22" rx="10" fill="#1c2440"/>
+  <circle cx="762" cy="69" r="3.4" fill="#ff5f57"/>
+  <circle cx="773" cy="69" r="3.4" fill="#febc2e"/>
+  <circle cx="784" cy="69" r="3.4" fill="#28c840"/>
+  <rect x="760" y="92" width="90" height="9" rx="4" fill="#2c3854"/>
+  <rect x="760" y="108" width="128" height="9" rx="4" fill="#2c3854"/>
+  <rect x="760" y="124" width="70" height="9" rx="4" fill="#25304a"/>
+  <rect x="760" y="140" width="110" height="9" rx="4" fill="#2c3854"/>
+
+  <rect x="782" y="150" width="168" height="116" rx="10" fill="#1a2340" stroke="#3d4d70" stroke-width="1.5"/>
+  <rect x="782" y="150" width="168" height="22" rx="10" fill="#212c4e"/>
+  <circle cx="796" cy="161" r="3.4" fill="#ff5f57"/>
+  <circle cx="807" cy="161" r="3.4" fill="#febc2e"/>
+  <circle cx="818" cy="161" r="3.4" fill="#28c840"/>
+  <rect x="794" y="184" width="100" height="9" rx="4" fill="#334061"/>
+  <rect x="794" y="200" width="132" height="9" rx="4" fill="#334061"/>
+  <rect x="794" y="216" width="80" height="9" rx="4" fill="#334061"/>
+  <rect x="794" y="232" width="120" height="9" rx="4" fill="#334061"/>
+</svg>
