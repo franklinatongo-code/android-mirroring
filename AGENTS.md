@@ -54,7 +54,7 @@ scrcx mirror -- --v4l2-sink=/dev/video0    # passthrough: ANY raw scrcpy flag wo
                                             # audio auto-try: default→aac→flac→no-audio until one works
                                             # (winner cached per device in ~/.local/state/scrcx/audio-<serial>.json)
 scrcx app start com.package.name | app stop | app list
-scrcx app-window com.package [...more]        # package(s) = one desktop window each (flex resizable, audio auto)
+scrcx app-window yt insta snap whats dc       # fuzzy tokens/aliases; one desktop window each (flex resizable, audio auto)
 scrcx app-window com.package --size 400x780   # initial size; flex keeps following window resizes
 scrcx app-window com.package --maximize       # fullscreen start; --title NAME names the window
 scrcx app-window com.package --no-audio       # mute the window (audio auto otherwise: default→aac→flac)

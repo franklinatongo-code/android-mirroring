@@ -1,3 +1,4 @@
+import difflib
 import json
 import os
 import signal
@@ -399,18 +400,35 @@ def named_apps(serial):
     return entries
 
 
+APP_ALIASES = {
+    "yt": "youtube", "ig": "instagram", "wa": "whatsapp", "fb": "facebook",
+    "tg": "telegram", "dc": "discord", "gh": "github", "gm": "gmail",
+    "gb": "googlebrowser", "gg": "chrome", "sn": "snapchat", "gd": "google drive",
+}
+
+
 def resolve_app(token, entries):
     if "." in token:
         return token
-    t = token.lower().replace(" ", "")
-    exact = [e for e in entries if e["name"].lower().replace(" ", "") == t]
+    t = token.lower().replace(" ", "").strip()
+    t = APP_ALIASES.get(t, t)
+    norm = lambda s: s.lower().replace(" ", "")
+    exact = [e for e in entries if norm(e["name"]) == t]
     if exact:
         return exact[0]["package"]
-    cand = [e for e in entries if t in e["name"].lower().replace(" ", "") or t in e["package"].lower()]
-    if not cand:
-        raise RuntimeError(f"no app matches token {token!r}; run: scrcx app list --names")
-    cand.sort(key=lambda e: len(e["name"]))
-    return cand[0]["package"]
+    starts = [e for e in entries if t and (norm(e["name"]).startswith(t) or e["package"].lower().startswith(t))]
+    if not starts:
+        if len(t) >= 3:
+            starts = [e for e in entries if t in norm(e["name"]) or t in e["package"].lower()]
+    if not starts:
+        names = [norm(e["name"]) for e in entries]
+        close = difflib.get_close_matches(t, names, n=1, cutoff=0.7)
+        if close:
+            return [e for e in entries if norm(e["name"]) == close[0]][0]["package"]
+        near = difflib.get_close_matches(t, names, n=5, cutoff=0.4)
+        raise RuntimeError(f"no app matches token {token!r}; near: {', '.join(near) or '—'}; run: scrcx app list --names")
+    starts.sort(key=lambda e: len(norm(e["name"])))
+    return starts[0]["package"]
 
 
 class RecordingSink:

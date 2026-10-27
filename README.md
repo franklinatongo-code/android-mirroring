@@ -1,21 +1,32 @@
-# scrcpy-x
+# 🎛️ scrcx — your Android apps as real desktop windows
 
-Custom scrcpy AI toolkit built on top of upstream `Genymobile/scrcpy` server v5.0.1.
-Core concept: a **Python bridge** (`scrcx`) runs the stock scrcpy-server on the device and exposes
-its raw video + control channels as simple terminal commands so **AI agents (opencode) can see and
-drive the phone like a human**.
+**One Python package. Zero pip deps. Your phone on your PC — scriptable, cautious, and fast.**
 
-Quick glance:
+![License](https://img.shields.io/badge/license-MIT-green) ![Python](https://img.shields.io/badge/python-3.8%2B-blue) ![platform](https://img.shields.io/badge/platform-linux-informational) ![scrcpy](https://img.shields.io/badge/scrcpy-v5.0.1-orange)
 
+scrcx (say "scrick-s") opens **YouTube, WhatsApp, Discord, Instagram — any app — in its own resizable
+desktop window**, then gives you (and AI agents like opencode) terminal super-powers over the phone:
+
+```zsh
+$ ./bin/scrcx app-window yt insta dc              # fuzzy names, one window each
+$ ./bin/scrcx see                                 # screenshot + OCR → tap-ready JSON
+$ ./bin/scrcx tap --text "Sign in"                # tap the thing, not coordinates
+$ ./bin/scrcx rewind --ago 90 --save before.png   # time machine: any moment, 90s back
+$ ./bin/scrcx unlock --pin <pin> --stealth        # unlock with the screen never visibly on
 ```
-scrcpy-x/
-├── bin/scrcx         CLI entry (python, no deps beyond ffmpeg+tesseract on the PC)
-├── scrcx/            bridge implementation (python, stdlib only)
-├── tests/            offline protocol + CLI tests (no device needed)
-└── README.md         this file — feature roadmap maps ALL requested features
-```
 
-## Quickstart
+## ✨ Highlights
+
+- 🪟 **App windows** — phone apps in free-floating, flex-resizable desktop windows (virtual displays + scrcpy v5.0.1)
+- 🕹️ **AI-ready control loop** — `see` → decide → `tap/text/swipe/key`; OCR words come back with *tap-ready* coordinates
+- ⏪ **Time machine** — a PC-side ring buffer keeps the last 5 minutes; `rewind --ago 30` instantly
+- 🔊 **Audio both ways** — phone sound on your PC speakers, or record the phone's audio to a file
+- 📷 **Camera mirroring**, 🛠️ **APK install**, 📁 **push/pull/file A→B**, 📋 **clipboard sync**, 🎥 **screen recording**
+- 🌐 **Watch in the browser** — MJPEG mirror shareable over LAN
+- 🖱️ **Two GUIs** — point-and-click web control center, and a native Tk dashboard
+- 🧙 **Daemon self-healing** — sessions auto-recover; screen on/off, stealth unlock, instant-lock safe
+
+## 🚀 Quickstart
 
 ```bash
 git clone https://github.com/franklinatongo-code/android-mirroring.git
@@ -29,6 +40,21 @@ Python 3 stdlib only — no pip packages needed. Requirements: `adb`, `ffmpeg`, 
 (installed by `setup.sh`). Optional: a local build of the scrcpy v5.0.1 **client** unlocks
 `app-window` (phone apps as resizable desktop windows), `mirror`, `record-video`,
 `audio-capture/play`, `camera` and `dcaps` — everything else works with the bundled server jar.
+
+> 💡 **Fuzzy app tokens**: `yt`→YouTube, `ig`→Instagram, `wa`→WhatsApp, `dc`→Discord, `snap`→Snapchat,
+> plus substrings and typos — `instgrm`, `yorutube` and `whats` all resolve. Launch several at once:
+> `scrcx app-window yt insta snap whats dc`
+
+## 📂 Project layout
+
+```
+android-mirroring/
+├── bin/scrcx         CLI entry (python, no deps beyond ffmpeg+tesseract on the PC)
+├── scrcx/            bridge implementation (python, stdlib only)
+├── vendor/           bundled scrcpy-server v5.0.1 jar
+├── tests/            offline protocol + CLI tests (no device needed)
+└── MANUAL.md         full user manual, every command explained
+```
 
 ## Device protocol hits upstream code
 

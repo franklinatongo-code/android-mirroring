@@ -157,14 +157,21 @@ Each app opens as its OWN PC window in its own phone display. The phone's main s
 
 ```
 ./bin/scrcx app-window com.whatsapp                     one window, freely resizable
+./bin/scrcx app-window yt insta snap whats dc           fuzzy names, multiple windows in one go
+./bin/scrcx app-window instgrm                          typos work too (difflib-based matching)
 ./bin/scrcx app-window com.whatsapp com.discord          two windows (staggered, no port race)
 ./bin/scrcx app-window com.whatsapp --maximize           start maximized
 ./bin/scrcx app-window com.whatsapp --size 720x1280     fixed phone resolution (window letterboxes)
 ./bin/scrcx app-window com.anything --title "Chat"       name the window
 ./bin/scrcx app-window X --fps 30 --bitrate 8M           quality tweaks
 ./bin/scrcx app-window X --fullscreen --on-top --show-touches --stay-awake --turn-screen-off
+./bin/scrcx app-window X --no-audio                     mute the window (audio auto otherwise)
 ./bin/scrcx app-window X --pass <anything-scrcpy>        raw scrcpy flags passthrough
 ```
+
+Fuzzy token rules (in order): exact name → alias (`yt ig wa fb tg dc gh gm gg sn`) →
+name/package startswith → substring (3+ chars) → typo-tolerant difflib. Dotted tokens are treated
+as raw package names. `scrcx app list --names` prints what the matcher knows.
 
 Packet tips:
 ```
