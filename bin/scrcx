@@ -1,0 +1,11 @@
+#!/usr/bin/env python3
+import os
+import sys
+
+PROJ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, PROJ)
+sys.argv[0] = "scrcx"
+
+from scrcx.cli import main
+
+main()
