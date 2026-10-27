@@ -212,12 +212,19 @@ def write_state(serial, state):
 
 
 def get_server_jar():
+    env = os.environ.get("SCRCX_SERVER_JAR")
+    if env and os.path.exists(env):
+        return env
     here = os.path.dirname(os.path.abspath(__file__))
-    repo = os.path.abspath(os.path.join(here, "..", "..", "offline-setup", "scrcpy-server-v5.0.1"))
-    if os.path.exists(repo):
-        return repo
+    proj = os.path.abspath(os.path.join(here, ".."))
+    vendored = os.path.join(proj, "vendor", "scrcpy-server-v5.0.1")
+    if os.path.exists(vendored):
+        return vendored
+    legacy = os.path.abspath(os.path.join(here, "..", "..", "offline-setup", "scrcpy-server-v5.0.1"))
+    if os.path.exists(legacy):
+        return legacy
     if shutil.which("scrcpy"):
         guess = "/usr/libexec/scrcpy-update-server"
         if os.path.exists(guess):
             return guess
-    raise FileNotFoundError("scrcpy-server jar not found; pass --server-jar")
+    raise FileNotFoundError("scrcpy-server jar not found; run ./setup.sh or pass --server-jar")

@@ -15,6 +15,21 @@ scrcpy-x/
 └── README.md         this file — feature roadmap maps ALL requested features
 ```
 
+## Quickstart
+
+```bash
+git clone https://github.com/franklinatongo-code/android-mirroring.git
+cd android-mirroring
+./setup.sh                  # installs adb/ffmpeg/tesseract, fetches the scrcpy-server jar
+./bin/scrcx connect         # phone over USB, USB debugging enabled
+./bin/scrcx see             # screenshot + OCR with tap-ready coordinates
+```
+
+Python 3 stdlib only — no pip packages needed. Requirements: `adb`, `ffmpeg`, `tesseract-ocr`
+(installed by `setup.sh`). Optional: a local build of the scrcpy v5.0.1 **client** unlocks
+`app-window` (phone apps as resizable desktop windows), `mirror`, `record-video`,
+`audio-capture/play`, `camera` and `dcaps` — everything else works with the bundled server jar.
+
 ## Device protocol hits upstream code
 
 The bridge speaks the EXACT v5.0.1 wire protocol (mirrors files read from the upstream `Genymobile/scrcpy` v5.0.1 `server/src`):
