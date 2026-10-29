@@ -33,6 +33,8 @@ OCR word centers are computed for tap coordinates already; just use `x`,`y` as t
 
 ## Targeting OCR text without seeing it
 ```
+scrcx ui --actionable          # uiautomator tree → JSON (text/desc/id/cls, tap center c:[x,y])
+scrcx ui --q settings          # filter nodes containing "settings"; --limit N; --save raw.xml
 scrcx tap --text "Settings"     # tap whatever OCR sees as "Settings" (first match)
 scrcx tap --text "OK" --nth 2   # nth occurrence on the current screen
 scrcx find "WiFi" --nth 0       # just print coords json

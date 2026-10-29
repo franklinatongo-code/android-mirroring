@@ -487,6 +487,66 @@ def cmd_devices(args):
     out({"devices": devs})
 
 
+def _ui_tree(serial, save=None):
+    import xml.etree.ElementTree as ET
+    r = subprocess.run(["adb", "-s", serial, "exec-out", "uiautomator", "dump", "/dev/tty"], capture_output=True, timeout=25)
+    xml = r.stdout
+    if not xml.strip().startswith(b"<"):
+        r = subprocess.run(["adb", "-s", serial, "shell", "uiautomator", "dump", f"{TMP}/uis.xml"], capture_output=True, timeout=25)
+        if r.returncode != 0 or b"dumped" not in (r.stdout + r.stderr).lower():
+            raise RuntimeError("uiautomator dump failed: " + (r.stdout[:80] + r.stderr[:80]).decode(errors="replace"))
+        xml = subprocess.run(["adb", "-s", serial, "shell", "cat", f"{TMP}/uis.xml"], capture_output=True, timeout=20).stdout
+    if save:
+        open(save, "wb").write(xml)
+    end = xml.rfind(b"</hierarchy>")
+    if end != -1:
+        xml = xml[: end + len(b"</hierarchy>")]
+    return ET.fromstring(xml)
+
+
+def cmd_ui(args):
+    import time as _t
+    serial = resolve_serial(args)
+    t0 = _t.time()
+    root = _ui_tree(serial, save=args.save)
+    nodes = []
+    def _bounds(b):
+        try:
+            a = b[1:-1].split("][")
+            (l, tp), (rr, bm) = [tuple(map(int, p.split(","))) for p in a]
+            if rr <= l or bm <= tp:
+                return None
+            return (l, tp, rr, bm)
+        except Exception:
+            return None
+    for n in root.iter("node"):
+        txt = (n.get("text") or "").strip()
+        desc = (n.get("content-desc") or "").strip()
+        box = _bounds(n.get("bounds", ""))
+        if not (txt or desc) and not box:
+            continue
+        q = (args.q or "").lower()
+        if q and q not in txt.lower() and q not in desc.lower():
+            continue
+        if args.actionable and not (n.get("clickable") == "true" or n.get("scrollable") == "true" or n.get("editable") == "true" or txt or desc):
+            continue
+        x = y = None
+        if box:
+            x, y = (box[0] + box[2]) // 2, (box[1] + box[3]) // 2
+        node = {"c": [x, y], "box": list(box) if box else None,
+                "text": txt or None, "desc": desc or None,
+                "id": n.get("resource-id") or None, "cls": n.get("class") or None}
+        for flag, attr in (("click", "clickable"), ("scroll", "scrollable"), ("edit", "editable"), ("pass", "password")):
+            if n.get(attr) == "true":
+                node[flag] = True
+        nodes.append(node)
+    nodes = [n for n in nodes if True]
+    res = {"ok": True, "serial": serial, "ms": round((_t.time() - t0) * 1000), "count": len(nodes), "nodes": nodes}
+    if args.limit:
+        res["nodes"] = nodes[: args.limit]
+    out(res)
+
+
 def cmd_connect(args):
     serial = resolve_serial(args)
     state = adb.read_state(serial)
@@ -988,6 +1048,13 @@ def main(argv=None):
     sub = p.add_subparsers(dest="cmd", required=True)
 
     sub.add_parser("devices").set_defaults(fn=cmd_devices)
+
+    q = sub.add_parser("ui")
+    q.add_argument("--q", default="")
+    q.add_argument("--actionable", action="store_true")
+    q.add_argument("--limit", type=int, default=0)
+    q.add_argument("--save", default=None)
+    q.set_defaults(fn=cmd_ui)
 
     q = sub.add_parser("connect")
     q.add_argument("--lan", action="store_true")
