@@ -1206,7 +1206,15 @@ def main(argv=None):
     q = sub.add_parser("gui-app")
     q.set_defaults(fn=cmd_desktop)
 
-    args = p.parse_args(argv)
+    a2 = list(argv) if argv is not None else list(sys.argv[1:])
+    if a2 and a2[0] in sub.choices and "--serial" in a2:
+        j = a2.index("--serial")
+        if j + 1 < len(a2):
+            val = a2[j + 1 : j + 2]
+            del a2[j : j + 1]
+            del a2[j]
+            a2 = ["--serial", *val] + a2
+    args = p.parse_args(a2)
     try:
         args.fn(args)
     except RuntimeError as exc:
